@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Messaggi</title>
+    <link rel="stylesheet" type="text/css" href="messaggistica.css">
+    <link rel="icon" href="icon.png">
+
+    <script type="text/javascript">
+        var password;
+        var personalName;
+        var listaContatti = [];
+        var attiva;
+        var destinatario;
+        var nomeMittente;
+        var isLogin = true;
+        var isGroup = false;
+        //apre la connessione e associa le funzioni ai vari eventi
+        function apri(address) {
+            sock = new WebSocket("ws://" + address + ":8080");
+            sock.onopen = function (parametro) {
+                document.getElementById("svg").innerHTML = '<path fill="none" d="M0 0h24v24H0V0z"/><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4 0-2.05 1.53-3.76 3.56-3.97l1.07-.11.5-.95C8.08 7.14 9.94 6 12 6c2.62 0 4.88 1.86 5.39 4.43l.3 1.5 1.53.11c1.56.1 2.78 1.41 2.78 2.96 0 1.65-1.35 3-3 3zm-9-3.82l-2.09-2.09L6.5 13.5 10 17l6.01-6.01-1.41-1.41z"/>';
+            };
+            sock.onmessage = function (parametro) {
+                ricevi(parametro.data);
+            }
+        }
+
+        document.addEventListener("keyup", function (event) {
+                event.preventDefault();
+                if (event.keyCode === 13) {
+                    document.getElementById("sender").click();
+                }
+            });
+
+        function openChat(name) {
+            try {
+                document.getElementById("l" + attiva).classList.remove("active");
+                document.getElementById(attiva).style.visibility = "hidden";
+            }
+            catch{
+
+            }
+
+            isGroup = false;
+            attiva = name;
+            document.getElementById("l" + attiva).classList.add("active");
+            document.getElementById(name).style.visibility = "visible";
+        }
+
+        function openChatG(name) {
+            try {
+                document.getElementById("l" + attiva).classList.remove("active");
+                document.getElementById(attiva).style.visibility = "hidden";
+            }
+            catch{
+
+            }
+            isGroup = true;
+
+            attiva = name;
+            document.getElementById("l" + attiva).classList.add("active");
+            document.getElementById(name).style.visibility = "visible";
+        }
+
+        function checkName(n) {
+            return n == nomeMittente;
+        }
+        //aggiorna il contenitore DIV con un paragrafo contenente l'echo del server
+        function ricevi(dato) {
+            var m = JSON.parse(dato);
+
+            switch (m.tipoMsg) {
+                case 0:
+                    nomeMittente = m.nomeMittente;
+                    var i = listaContatti.findIndex(checkName);
+                    if (i == -1) {
+                        document.getElementById("links").innerHTML += '<div class="chatLink" id="l' + m.nomeMittente + '" onclick="openChat(' + "'" + m.nomeMittente + "'" + ')"><h1>' + m.nomeMittente + '</h1><p>chat</p></div>'
+                        document.getElementById("chatContainer").innerHTML += '<div class="chat" style="visibility:hidden" id="' + m.nomeMittente + '">' + '</div>';
+                        listaContatti.push(m.nomeMittente);
+                        var msg = {
+                            testo: "<new>",
+                            nomeMittente: personalName,
+                            nomeDestinatario: m.nomeMittente,
+                            tipoMsg: 0,
+                            psw: password,
+                        };
+                        sock.send(JSON.stringify(msg));
+                    }
+                    else {
+                        if (m.messaggio != "<new>") {
+                            document.getElementById(m.nomeMittente).innerHTML += '<p id="other">' + m.messaggio + '</p><br></div>';
+                        }
+
+                    }
+
+                    break;
+                case 1:
+                    if (m.result) {
+                        personalName = document.getElementById('nome').value;
+                        password = document.getElementById('password').value;
+                        document.getElementById('name').innerHTML = personalName;
+                        document.getElementById('section1').style.display = "none";
+                        document.title = "Messaggi - " + personalName;
+                    }
+                    else {
+                        alert("registrazione failed, username alredy used");
+                    }
+                    break;
+                case 2:
+                    if (m.result) {
+                        personalName = document.getElementById('nome').value;
+                        password = document.getElementById('password').value;
+                        document.getElementById('name').innerHTML = personalName;
+                        document.getElementById('section1').style.display = "none";
+                        document.title = "Messaggi - " + personalName;
+                    }
+                    else {
+                        alert("login failed, userame or password wrong");
+                    }
+                    break;
+                case 3:
+                    alert(m.messaggio);
+                    break;
+                case 4:
+                    nomeMittente = m.nomeMittente;
+                    var i = listaContatti.findIndex(checkName);
+                    if (i == -1) {
+                        document.getElementById("chatContainer").innerHTML += '<div class="chat" style="visibility:hidden" id="' + m.nomeMittente + '">' + '</div>';
+                        listaContatti.push(m.nomeMittente);
+                        attiva = nomeMittente;
+                        if (m.admin == personalName) {
+
+                            document.getElementById("links").innerHTML += '<div class="chatLink" id="l' + m.nomeMittente + '" onclick="openChatG(' + "'" + m.nomeMittente + "'" + ')"><h1>' + m.nomeMittente + '</h1><p>group</p> <div class="add open"> <input type="txt" class="inGroup" placeholder="name" id="a' + m.nomeMittente + '"><button id="buttonG" onclick="AddTo(' + "'" + m.nomeMittente + "'" + ')">ADD</button> <button id="btnRemove" onclick="Remove(' + "'" + m.nomeMittente + "'" + ')">RMV</button> <button id="EliminaG" onclick="EliminaServer(' + "'" + m.nomeMittente + "'" + ')">Elimina Gruppo</button> </div>  </div>';
+
+                        }
+                        else {
+                            document.getElementById("links").innerHTML += '<div class="chatLink" id="l' + m.nomeMittente + '" onclick="openChatG(' + "'" + m.nomeMittente + "'" + ')"><h1>' + m.nomeMittente + '</h1><p>group</p> <div class="add openU"> <button id="EliminaG" onclick="Abbandona(' + "'" + m.nomeMittente + "'" + ')">Abbandona</button> </div></div>';
+                        }
+                    }
+                    else {
+                        document.getElementById(m.nomeMittente).innerHTML += '<p id="otherG">' + m.messaggio + '</p><br></div>';
+                    }
+                    break;
+                case 5:
+                    Elimina(m.messaggio);
+                    break;
+            }
+        }
+
+        function Abbandona(name) {
+            var msg = {
+                testo: personalName, //da eliminare
+                nomeMittente: personalName,
+                nomeDestinatario: name,
+                tipoMsg: 7,
+                psw: password
+            };
+            sock.send(JSON.stringify(msg));
+        }
+
+        function Remove(name) {
+            var msg = {
+                testo: document.getElementById('a' + name).value, //da eliminare
+                nomeMittente: personalName,
+                nomeDestinatario: name,
+                tipoMsg: 7,
+                psw: password
+            };
+            document.getElementById('a' + name).value = "";
+            sock.send(JSON.stringify(msg));
+        }
+
+
+        function AddTo(name) {
+            var msg = {
+                testo: document.getElementById('a' + name).value,
+                nomeMittente: personalName,
+                nomeDestinatario: name,
+                tipoMsg: 6,
+                psw: password
+            };
+            document.getElementById('a' + name).value = "";
+            sock.send(JSON.stringify(msg));
+        }
+
+        function EliminaServer(name) {
+            var msg = {
+                testo: "",
+                nomeMittente: personalName,
+                nomeDestinatario: name,
+                tipoMsg: 5,
+                psw: password
+            };
+            sock.send(JSON.stringify(msg));
+        }
+
+        function Elimina(name) {
+            for (var i = listaContatti.length - 1; i >= 0; i--) {
+                if (listaContatti[i] === name) {
+                    listaContatti.splice(i, 1);
+                }
+            }
+            var elem = document.getElementById(name);
+            document.getElementById(name).parentNode.removeChild(elem);
+            elem = document.getElementById("l" + name);
+            document.getElementById("l" + name).parentNode.removeChild(elem)
+        }
+
+        function login() {
+            if (isLogin) {
+                var msg = {
+                    testo: " ",
+                    nomeMittente: document.getElementById('nome').value,
+                    nomeDestinatario: " ",
+                    tipoMsg: 2,
+                    psw: document.getElementById('password').value,
+                };
+                sock.send(JSON.stringify(msg));
+            }
+            else {
+                if (document.getElementById('password').value == document.getElementById('passwordRep').value) {
+                    var msg = {
+                        testo: " ",
+                        nomeMittente: document.getElementById('nome').value,
+                        nomeDestinatario: " ",
+                        tipoMsg: 1,
+                        psw: document.getElementById('password').value,
+                    };
+                    sock.send(JSON.stringify(msg));
+                }
+                else {
+                    alert("password and repeat password must be the same");
+                }
+            }
+
+        }
+        //invia al server ciò che è scritto sulla textBox
+        function invia() {
+            if (document.getElementById('send').value != "") {
+                var msg = {
+                    testo: document.getElementById('send').value,
+                    nomeMittente: personalName,
+                    nomeDestinatario: attiva,
+                    tipoMsg: 0,
+                    psw: password,
+                };
+
+                if (isGroup) {
+                    msg.tipoMsg = 4;
+                }
+
+                document.getElementById(msg.nomeDestinatario).innerHTML += '<p id="me">' + document.getElementById('send').value + '</p><br>';
+                sock.send(JSON.stringify(msg));
+                document.getElementById('send').value = "";
+            }
+        }
+
+        function addChat() {
+            var msg = {
+                testo: " ",
+                nomeMittente: personalName,
+                nomeDestinatario: document.getElementById('toAdd').value,
+                tipoMsg: 0,
+                psw: password,
+            };
+            sock.send(JSON.stringify(msg));
+            OpenAddChat();
+
+        }
+
+        function CheckConnection() {
+            apri(document.getElementById("server").value);
+        }
+
+        function settings() {
+            document.getElementById("passwordRep").style.display = "none";
+            document.getElementById("brRep").style.display = "none";
+        }
+
+        function changeMode() {
+            if (isLogin) {
+                document.getElementById("passwordRep").style.display = "unset";
+                document.getElementById("brRep").style.display = "unset";
+                document.getElementById("first").innerHTML = "sing up";
+                document.getElementById("second").innerHTML = "log in";
+            }
+            else {
+                document.getElementById("passwordRep").style.display = "none";
+                document.getElementById("brRep").style.display = "none";
+                document.getElementById("first").innerHTML = "log in";
+                document.getElementById("second").innerHTML = "sign up";
+            }
+
+            isLogin = !isLogin;
+        }
+
+        var isChatOpen = false;
+        var isGroupOpen = false;
+        function OpenAddChat() {
+            if (isGroupOpen) {
+                document.getElementById("addGroup").style.height = "0px";
+                isGroupOpen = !isGroupOpen;
+            }
+            if (!isChatOpen) {
+                document.getElementById("addChat").style.height = "70px";
+            }
+            else {
+                document.getElementById("addChat").style.height = "0px";
+            }
+            isChatOpen = !isChatOpen;
+        }
+
+        function OpenAddGroup() {
+            if (isChatOpen) {
+                document.getElementById("addChat").style.height = "0px";
+                isChatOpen = !isChatOpen;
+            }
+            if (!isGroupOpen) {
+                document.getElementById("addGroup").style.height = "240px";
+            }
+            else {
+                document.getElementById("addGroup").style.height = "0px";
+            }
+            isGroupOpen = !isGroupOpen;
+        }
+
+        var s = "";
+        function addPerson() {
+            var nome = document.getElementById('toAddG').value;
+            s += nome + ";";
+            document.getElementById('toAddG').value = "";
+            document.getElementById("membri").innerHTML += nome + "  ";
+        }
+
+        function createGroup() {
+            if (document.getElementById('groupName').value != "") {
+                var msg = {
+                    testo: document.getElementById('groupName').value,
+                    nomeMittente: personalName,
+                    nomeDestinatario: s,
+                    tipoMsg: 3,
+                    psw: password,
+                };
+                sock.send(JSON.stringify(msg));
+                s = "";
+                document.getElementById("membri").innerHTML = "Membri: ";
+                document.getElementById('groupName').value = "";
+                OpenAddGroup()
+            }
+            else {
+                alert("è necessario inserire il nome del gruppo");
+            }
+
+        }
+    </script>
+</head>
+
+<body onload="settings()">
+    <div class="section1" id="section1">
+        <div class="home">
+            <div>
+                <input type="txt" id="server" placeholder="server address" oninput="CheckConnection()" />
+                <svg id="svg" viewBox="0 0 24 24"></svg>
+            </div>
+
+            <input type="txt" id="nome" placeholder="username" /><br>
+            <input type="password" id="password" placeholder="password" /><br>
+            <input type="password" id="passwordRep" placeholder="repeat password"><br id="brRep">
+
+            <button id="second" onclick="changeMode()">sign up</button>
+            <button id="first" onclick="login()">log in</button>
+        </div>
+    </div>
+
+    <div class="section2">
+        <div class="leftBar">
+            <div class="actionBar">
+                <h1 id="name">Chat</h1>
+                <button id="AddChat" onclick="OpenAddChat()">Add chat</button>
+                <button onclick="OpenAddGroup()">Create group</button>
+            </div>
+            <div id="addChat" class="add">
+                <input type="txt" placeholder="name" id="toAdd">
+                <button onclick="addChat()">ADD</button>
+            </div>
+            <div id="addGroup" class="add">
+                <input type="txt" placeholder="group name" id="groupName">
+                <input type="txt" placeholder="to add" id="toAddG">
+                <p id="membri">Membri: </p>
+                <button onclick="addPerson()">ADD</button>
+                <button onclick="createGroup()">CREATE</button>
+            </div>
+            <div class="linkContainer" id="links">
+            </div>
+        </div>
+        <div id="chatContainer">
+            <!--
+            <div class="chat">
+                <p id="me">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates dolorem, temporibus sit
+                    velit tenetur assumenda sint nisi nulla et iste voluptatem minus, quis hic qui ab impedit unde?
+                    Velit, expedita.</p><br>
+                <p id="other">Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptates dolorem, temporibus
+                    sit velit tenetur assumenda sint nisi nulla et iste voluptatem minus, quis hic qui ab impedit unde?
+                    Velit, expedita.</p><br>
+            </div>-->
+        </div>
+        <div class="send">
+            <input type="txt" placeholder="message" id="send">
+            <button onclick="invia()" id="sender">SEND</button>
+        </div>
+    </div>
+
+</body>
+
+</html>

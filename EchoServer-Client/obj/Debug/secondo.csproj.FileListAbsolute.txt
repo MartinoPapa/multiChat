@@ -1,0 +1,51 @@
+C:\Users\Claudio\Documents\Scuola ITT Marconi\SCUOLA ITI\A.S. 2014-2015\Quinta\websocket\Server\secondo\bin\Debug\secondo.exe.config
+C:\Users\Claudio\Documents\Scuola ITT Marconi\SCUOLA ITI\A.S. 2014-2015\Quinta\websocket\Server\secondo\bin\Debug\secondo.exe
+C:\Users\Claudio\Documents\Scuola ITT Marconi\SCUOLA ITI\A.S. 2014-2015\Quinta\websocket\Server\secondo\bin\Debug\secondo.pdb
+C:\Users\Claudio\Documents\Scuola ITT Marconi\SCUOLA ITI\A.S. 2014-2015\Quinta\websocket\Server\secondo\obj\Debug\secondo.csprojResolveAssemblyReference.cache
+C:\Users\Claudio\Documents\Scuola ITT Marconi\SCUOLA ITI\A.S. 2014-2015\Quinta\websocket\Server\secondo\obj\Debug\secondo.exe
+C:\Users\Claudio\Documents\Scuola ITT Marconi\SCUOLA ITI\A.S. 2014-2015\Quinta\websocket\Server\secondo\obj\Debug\secondo.pdb
+H:\as 2019-2020\08 laboratorio\5ai Tecnologie\WebSocket\Server + Client\secondo\bin\Debug\secondo.exe.config
+H:\as 2019-2020\08 laboratorio\5ai Tecnologie\WebSocket\Server + Client\secondo\bin\Debug\secondo.exe
+H:\as 2019-2020\08 laboratorio\5ai Tecnologie\WebSocket\Server + Client\secondo\bin\Debug\secondo.pdb
+H:\as 2019-2020\08 laboratorio\5ai Tecnologie\WebSocket\Server + Client\secondo\obj\Debug\secondo.csprojResolveAssemblyReference.cache
+H:\as 2019-2020\08 laboratorio\5ai Tecnologie\WebSocket\Server + Client\secondo\obj\Debug\secondo.exe
+H:\as 2019-2020\08 laboratorio\5ai Tecnologie\WebSocket\Server + Client\secondo\obj\Debug\secondo.pdb
+\\Repo\Studenti$\Informatica\SezAi\5Ai\Martino.Papa\Documenti\Tecnologie\EchoServer-Client\bin\Debug\secondo.exe.config
+\\Repo\Studenti$\Informatica\SezAi\5Ai\Martino.Papa\Documenti\Tecnologie\EchoServer-Client\bin\Debug\secondo.exe
+\\Repo\Studenti$\Informatica\SezAi\5Ai\Martino.Papa\Documenti\Tecnologie\EchoServer-Client\bin\Debug\secondo.pdb
+\\Repo\Studenti$\Informatica\SezAi\5Ai\Martino.Papa\Documenti\Tecnologie\EchoServer-Client\obj\Debug\secondo.csprojAssemblyReference.cache
+\\Repo\Studenti$\Informatica\SezAi\5Ai\Martino.Papa\Documenti\Tecnologie\EchoServer-Client\obj\Debug\secondo.csproj.CoreCompileInputs.cache
+\\Repo\Studenti$\Informatica\SezAi\5Ai\Martino.Papa\Documenti\Tecnologie\EchoServer-Client\obj\Debug\secondo.csproj.CopyComplete
+\\Repo\Studenti$\Informatica\SezAi\5Ai\Martino.Papa\Documenti\Tecnologie\EchoServer-Client\obj\Debug\secondo.exe
+\\Repo\Studenti$\Informatica\SezAi\5Ai\Martino.Papa\Documenti\Tecnologie\EchoServer-Client\obj\Debug\secondo.pdb
+\\Repo\Studenti$\Informatica\SezAi\5Ai\Martino.Papa\Documenti\Tecnologie\EchoServer-Client\bin\Debug\Newtonsoft.Json.dll
+\\Repo\Studenti$\Informatica\SezAi\5Ai\Martino.Papa\Documenti\Tecnologie\EchoServer-Client\bin\Debug\Newtonsoft.Json.xml
+Z:\Documenti\Tecnologie\EchoServer-Client\bin\Debug\secondo.exe.config
+Z:\Documenti\Tecnologie\EchoServer-Client\bin\Debug\secondo.exe
+Z:\Documenti\Tecnologie\EchoServer-Client\bin\Debug\secondo.pdb
+Z:\Documenti\Tecnologie\EchoServer-Client\bin\Debug\Newtonsoft.Json.dll
+Z:\Documenti\Tecnologie\EchoServer-Client\bin\Debug\Newtonsoft.Json.xml
+Z:\Documenti\Tecnologie\EchoServer-Client\obj\Debug\secondo.csprojAssemblyReference.cache
+Z:\Documenti\Tecnologie\EchoServer-Client\obj\Debug\secondo.csproj.CoreCompileInputs.cache
+Z:\Documenti\Tecnologie\EchoServer-Client\obj\Debug\secondo.csproj.CopyComplete
+Z:\Documenti\Tecnologie\EchoServer-Client\obj\Debug\secondo.exe
+Z:\Documenti\Tecnologie\EchoServer-Client\obj\Debug\secondo.pdb
+C:\Users\marti\OneDrive\Desktop\Tecnologie\EchoServer-Client\bin\Debug\secondo.exe.config
+C:\Users\marti\OneDrive\Desktop\Tecnologie\EchoServer-Client\bin\Debug\secondo.exe
+C:\Users\marti\OneDrive\Desktop\Tecnologie\EchoServer-Client\bin\Debug\secondo.pdb
+C:\Users\marti\OneDrive\Desktop\Tecnologie\EchoServer-Client\bin\Debug\Newtonsoft.Json.dll
+C:\Users\marti\OneDrive\Desktop\Tecnologie\EchoServer-Client\bin\Debug\Newtonsoft.Json.xml
+C:\Users\marti\OneDrive\Desktop\Tecnologie\EchoServer-Client\obj\Debug\secondo.csprojAssemblyReference.cache
+C:\Users\marti\OneDrive\Desktop\Tecnologie\EchoServer-Client\obj\Debug\secondo.csproj.CopyComplete
+C:\Users\marti\OneDrive\Desktop\Tecnologie\EchoServer-Client\obj\Debug\secondo.exe
+C:\Users\marti\OneDrive\Desktop\Tecnologie\EchoServer-Client\obj\Debug\secondo.pdb
+C:\Users\martino.papa\Downloads\EchoServer-Client\bin\Debug\secondo.exe.config
+C:\Users\martino.papa\Downloads\EchoServer-Client\bin\Debug\secondo.exe
+C:\Users\martino.papa\Downloads\EchoServer-Client\bin\Debug\secondo.pdb
+C:\Users\martino.papa\Downloads\EchoServer-Client\bin\Debug\Newtonsoft.Json.dll
+C:\Users\martino.papa\Downloads\EchoServer-Client\bin\Debug\Newtonsoft.Json.xml
+C:\Users\martino.papa\Downloads\EchoServer-Client\obj\Debug\secondo.csprojAssemblyReference.cache
+C:\Users\martino.papa\Downloads\EchoServer-Client\obj\Debug\secondo.csproj.CoreCompileInputs.cache
+C:\Users\martino.papa\Downloads\EchoServer-Client\obj\Debug\secondo.csproj.CopyComplete
+C:\Users\martino.papa\Downloads\EchoServer-Client\obj\Debug\secondo.exe
+C:\Users\martino.papa\Downloads\EchoServer-Client\obj\Debug\secondo.pdb
